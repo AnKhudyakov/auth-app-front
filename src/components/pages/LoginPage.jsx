@@ -1,4 +1,4 @@
-import Form from "../ui-kit/forms/FormLogin";
+import FormLogin from "../ui-kit/forms/FormLogin";
 
 const LoginPage = () => {
   return (
@@ -7,7 +7,7 @@ const LoginPage = () => {
       style={{ maxWidth: "500px" }}
     >
       <h1 className="text-center">Login</h1>
-      <Form variant="login" />
+      <FormLogin />
     </section>
   );
 };
