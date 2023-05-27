@@ -7,18 +7,22 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "@/context/userContext";
 import { useContext } from "react";
+import Input from "../input/Input";
 
-const Form = () => {
+const FormLogin = () => {
   const navigate = useNavigate();
-  const { update, setUpdate } = useContext(UserContext);
+  const { setUpdate, setIdSelected } = useContext(UserContext);
   const handleFormSubmit = async (values, actions) => {
     API.postLogin(values)
       .then((data) => {
         localStorage.setItem("access_token", data.token);
         actions.resetForm();
         toast.success("Successful Login");
+        setIdSelected([]);
         setUpdate(null);
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
       })
       .catch((err) => {
         switch (err.response.status) {
@@ -38,42 +42,13 @@ const Form = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <fieldset disabled={formik.isSubmitting}>
-        <div className="mb-3">
-          <label htmlFor="Email" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            aria-describedby="emailHelp"
-            value={formik.values.email}
-            name="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
-          {formik.touched.email && (
-            <p className="text-danger">{formik.errors.email}</p>
-          )}
-        </div>
-        <div className="mb-3">
-          <label htmlFor="Password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            value={formik.values.password}
-            name="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.password && (
-            <p className="text-danger">{formik.errors.password}</p>
-          )}
-        </div>
+        <Input formik={formik} label="Email" name="email" type="email" />
+        <Input
+          formik={formik}
+          label="Password"
+          name="password"
+          type="password"
+        />
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
@@ -93,4 +68,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default FormLogin;

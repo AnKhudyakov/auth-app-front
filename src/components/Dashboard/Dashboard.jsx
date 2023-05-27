@@ -4,18 +4,17 @@ import { UserContext } from "@/context/userContext";
 import { API } from "@/api/api";
 
 const Dashboard = ({ users }) => {
-  const { idSelected, setIdSelected, update, setUpdate } = useContext(UserContext);
+  const { idSelected, setIdSelected, update, setUpdate } =
+    useContext(UserContext);
   const handleBlock = () => {
     idSelected.forEach((id) => {
       if (users.find((user) => user._id === id).status === "active") {
         API.blockUser(id)
           .then((data) => {
             setUpdate(id);
-            //toast.success(data.message);
           })
           .catch((err) => {
             console.log(err);
-            //  toast.error(err.response.data.message);
           });
       }
     });
@@ -27,12 +26,10 @@ const Dashboard = ({ users }) => {
         API.unblockUser(id)
           .then((data) => {
             console.log(data.message);
-            setUpdate(id+"1");
-            //toast.success(data.message);
+            setUpdate(id + "1");
           })
           .catch((err) => {
             console.log(err);
-            //toast.error(err.response.data.message);
           });
       }
     });
@@ -41,14 +38,12 @@ const Dashboard = ({ users }) => {
     idSelected.forEach((id) => {
       API.removeUser(id)
         .then((data) => {
-          setIdSelected([])
-          setUpdate(id+"2");
+          setIdSelected([]);
+          setUpdate(id + "2");
           console.log(data.message);
-          //toast.success(data.message);
         })
         .catch((err) => {
           console.log(err);
-          //  toast.error(err.response.data.message);
         });
     });
   };
@@ -58,39 +53,24 @@ const Dashboard = ({ users }) => {
       <div className="mb-2 d-flex justify-content-end gap-2 align-items-center bg-light">
         <button
           type="button"
-          className={
-            // location.pathname !== "/login"
-            //    ?
-            "btn btn-primary"
-            //    : "btn btn-light text-dark me-2"
-          }
+          className={"btn btn-primary"}
           onClick={handleBlock}
         >
           Block User
         </button>
         <button
           type="button"
-          className={
-            // location.pathname !== "/login"
-            //    ?
-            "btn btn-primary"
-            //    : "btn btn-light text-dark me-2"
-          }
+          className={"btn btn-primary"}
           onClick={handleUnblock}
         >
-          Unblock User
+          <i className="bi bi-unlock"></i>
         </button>
         <button
           type="button"
-          className={
-            // location.pathname !== "/login"
-            //    ?
-            "btn btn-primary"
-            //    : "btn btn-light text-dark me-2"
-          }
+          className={"btn btn-primary"}
           onClick={handleDelete}
         >
-          Delete User
+          <i className="bi bi-trash3"></i>
         </button>
       </div>
       <Table users={users} />

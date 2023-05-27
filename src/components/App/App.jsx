@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import Layout from "../Layout/Layout";
 import { Route, Routes } from "react-router";
-import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
 import { BrowserRouter } from "react-router-dom";
+
+import Layout from "../Layout/Layout";
+import AuthPage from "../pages/AuthPage";
+import HomePage from "../pages/HomePage";
 
 function App() {
   return (
@@ -12,8 +11,8 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<AuthPage variant = "login" />} />
+          <Route path="/register" element={<AuthPage variant = "register"/>} />
         </Routes>
       </Layout>
     </BrowserRouter>
