@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { UserContext } from "@/context/userContext";
 import AuthBar from "../Authbar/Authbar";
-import Navbar from "../NavBar/Navbar";
+import Navbar from "../Navbar/Navbar";
 
 const Layout = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
